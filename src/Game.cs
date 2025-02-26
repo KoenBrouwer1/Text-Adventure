@@ -22,13 +22,28 @@ class Game
 		Room pub = new Room("in the campus pub");
 		Room lab = new Room("in a computing lab");
 		Room office = new Room("in the computing admin office");
+		Room park = new Room("in the park");
+		Room basement = new Room("in the basement");
+		Room fountain = new Room("by the fountain");
+		Room darkbasement = new Room("it's dark in here, wont find anything useful in here");
 
 		// Initialise room exits
 		outside.AddExit("east", theatre);
 		outside.AddExit("south", lab);
 		outside.AddExit("west", pub);
+		outside.AddExit("north", park);
+		outside.AddExit("down", basement);
+
+
+		basement.AddExit("up", outside);
+		basement.AddExit("north", darkbasement);
+		
+		darkbasement.AddExit("south", basement);
 
 		theatre.AddExit("west", outside);
+
+		park.AddExit("south", outside);
+		park.AddExit("east", fountain);
 
 		pub.AddExit("east", outside);
 
@@ -39,6 +54,9 @@ class Game
 
 		// Create your Items here
 		// ...
+		
+
+		
 		// And add them to the Rooms
 		// ...
 
@@ -150,5 +168,7 @@ class Game
 	private void Look()
 	{
 		Console.WriteLine(currentRoom.GetLongDescription());
+		Console.WriteLine("Sword (2kg)");
+		Console.WriteLine("Shield (5kg)");
 	}
 }
