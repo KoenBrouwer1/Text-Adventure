@@ -4,12 +4,14 @@ class Game
 {
 	// Private fields
 	private Parser parser;
-	private Room currentRoom;
+	private Player player;
+	private Room currentRoom { get; set; }
 
 	// Constructor
 	public Game()
 	{
 		parser = new Parser();
+		player = new Player();
 		CreateRooms();
 	}
 
@@ -45,6 +47,8 @@ class Game
 		park.AddExit("south", outside);
 		park.AddExit("east", fountain);
 
+		fountain.AddExit("west", park);
+
 		pub.AddExit("east", outside);
 
 		lab.AddExit("north", outside);
@@ -54,11 +58,18 @@ class Game
 
 		// Create your Items here
 		// ...
+		Item sword = new Item(2, "Sword");
+		Item shield = new Item(5, "Shield");
+
 		
 
 		
 		// And add them to the Rooms
 		// ...
+
+
+		// Basement.AddItem(sword);
+		// Basement.AddItem(shield);
 
 		// Start game outside
 		currentRoom = outside;
@@ -168,7 +179,7 @@ class Game
 	private void Look()
 	{
 		Console.WriteLine(currentRoom.GetLongDescription());
-		Console.WriteLine("Sword (2kg)");
-		Console.WriteLine("Shield (5kg)");
 	}
+	
+
 }
