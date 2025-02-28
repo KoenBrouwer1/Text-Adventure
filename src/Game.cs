@@ -27,7 +27,7 @@ class Game
 		Room park = new Room("in the park");
 		Room basement = new Room("in the basement");
 		Room fountain = new Room("by the fountain");
-		Room darkbasement = new Room("in the dark basement it's dark in here, wont find anything useful in here");
+		Room darkbasement = new Room("in the dark basement, it's dark in here, wont find anything useful in here");
 
 		// Initialise room exits
 		outside.AddExit("east", theatre);
@@ -131,6 +131,9 @@ class Game
 			case "look":
 				Look();
 				break;
+			case "status":
+				Status();
+				break;	
 		}
 
 		return wantToQuit;
@@ -166,6 +169,7 @@ class Game
 
 		// Try to go to the next room.
 		Room nextRoom = currentRoom.GetExit(direction);
+		player.Damage(10);
 		if (nextRoom == null)
 		{
 			Console.WriteLine("There is no door to "+direction+"!");
@@ -179,6 +183,10 @@ class Game
 	private void Look()
 	{
 		Console.WriteLine(currentRoom.GetLongDescription());
+	}
+	private void Status()
+	{
+		Console.WriteLine("Player's health: " + player.health);
 	}
 	
 

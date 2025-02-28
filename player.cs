@@ -2,7 +2,7 @@ class Player
 {
     // auto property
     public Room CurrentRoom { get; set; }
-    private int health;
+    public int health;
 
     // constructor
     public Player()
