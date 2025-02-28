@@ -27,7 +27,7 @@ class Game
 		Room park = new Room("in the park");
 		Room basement = new Room("in the basement");
 		Room fountain = new Room("by the fountain");
-		Room darkbasement = new Room("it's dark in here, wont find anything useful in here");
+		Room darkbasement = new Room("in the dark basement it's dark in here, wont find anything useful in here");
 
 		// Initialise room exits
 		outside.AddExit("east", theatre);
