@@ -13,7 +13,7 @@ class Player
     }
 
   // methods
-    public int Damage(int amount) {
+    public int Damage(int amount ) {
         health -= amount;
         return health;
     } 

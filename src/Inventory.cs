@@ -29,3 +29,18 @@ class Inventory
         return null;
     }
 }
+
+// class Room
+// {
+//     // field
+//     private Inventory chest;
+//     //property
+//     public Inventory //Chest
+// {get { return chest; }}
+// // constructor
+// public Room()
+// {
+//     // a Room can handle a big Inventory.
+//     chest = new Inventory(999999);
+// }
+// }
