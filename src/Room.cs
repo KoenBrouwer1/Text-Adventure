@@ -58,4 +58,18 @@ class Room
 
 		return str;
 	}
+	   // Field
+    private readonly Inventory chest;
+
+    // Property
+    public Inventory Chest => chest;
+
+    // Constructor
+    public Room()
+    {
+        // A Room can handle a big Inventory
+        chest = new Inventory(999999);
+    }
 }
+
+
