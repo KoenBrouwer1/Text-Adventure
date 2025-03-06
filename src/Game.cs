@@ -26,9 +26,9 @@ class Game
 		Room pool = new Room("you found a abandoned swimming pool deep in the woods");
 		Room lab = new Room("you found mysterious lab in the woods");
 		Room park = new Room("you are in a park its dark but you feel like u have been here before");
-		Room basement = new Room("you are in the basement, maybe we should go back");
+		Room basement = new Room("you are in the basement, maybe we should go back but there could be something useful here to the north");
 		Room fountain = new Room("you are by the fountain, maybe there is somthing here?");
-		Room darkbasement = new Room("in the dark basement, it's dark in here, wont find anything useful in here");
+		Room darkbasement = new Room("in the dark basement, it's dark in here but maybe there could be something here");
 		Room insidehouse = new Room("its a small house, you hope you find something useful in here");
 		Room insidelab = new Room("you are inside of the lab and you didnt find anything");
 
@@ -37,31 +37,39 @@ class Game
 		start.AddExit("south", lab);
 		start.AddExit("west", pool);
 		start.AddExit("north", park);
-		// start.AddExit("down", basement);
 
 
+		//basement
 		basement.AddExit("up", house);
 		basement.AddExit("north", darkbasement);
 
+		//darkbasement
 		darkbasement.AddExit("south", basement);
 		darkbasement.AddExit("outside", house);
 
+		//house
 		house.AddExit("west", start);
 		house.AddExit("inside", insidehouse);
 
+		//insidehouse
 		insidehouse.AddExit("outside", house);
 		insidehouse.AddExit("down", basement);
 
+		//park
 		park.AddExit("south", start);
 		park.AddExit("east", fountain);
 
+		//fountain
 		fountain.AddExit("west", park);
 
+		//pool
 		pool.AddExit("east", start);
 
+		//lab
 		lab.AddExit("north", start);
 		lab.AddExit("inside", insidelab);
 
+		//insidelab
 		insidelab.AddExit("outside", lab);
 
 
@@ -75,6 +83,7 @@ class Game
 
 		// And add them to the Rooms
 		// ...
+
 
 		// Start game outside
 		player.CurrentRoom = start;
@@ -110,7 +119,7 @@ class Game
 		Console.WriteLine();
 		Console.WriteLine("Type 'help' if you need help.");
 		Console.WriteLine();
-		
+
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
 	}
 
@@ -123,8 +132,8 @@ class Game
 
 		if (command.IsUnknown())
 		{
-			
-			
+
+
 			return wantToQuit; // false
 		}
 
@@ -200,8 +209,5 @@ class Game
 	{
 		Console.WriteLine("Player's health: " + player.health);
 	}
-
-
-
 
 }
