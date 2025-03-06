@@ -3,7 +3,7 @@ using System;
 class Parser
 {
 	// Holds all valid command words
-	private readonly CommandLibrary commandLibrary; 
+	private readonly CommandLibrary commandLibrary;
 
 	// Constructor
 	public Parser()
@@ -25,7 +25,8 @@ class Parser
 		if (words.Length > 1) { word2 = words[1]; }
 
 		// Now check whether this word is known. If so, create a command with it.
-		if (commandLibrary.IsValidCommandWord(word1)) {
+		if (commandLibrary.IsValidCommandWord(word1))
+		{
 			return new Command(word1, word2);
 		}
 

@@ -1,8 +1,17 @@
+using System.Security.Cryptography.X509Certificates;
+
 class Player
 {
     // auto property
     public Room CurrentRoom { get; set; }
-    public int health;
+    public int health; //zet health nog op private later en fix die melding :)
+
+    // public int Health
+    // {
+    //     get { return health; }
+    //     set { health = value; }
+    // }
+
 
     // constructor
     public Player()
@@ -12,18 +21,21 @@ class Player
         health = 100;
     }
 
-  // methods
-    public int Damage(int amount ) {
+    // methods
+    public int Damage(int amount)
+    {
         health -= amount;
         return health;
-    } 
+    }
     // player loses some health
-    public int Heal( int amount) {
+    public int Heal(int amount)
+    {
         health += amount;
         return health;
-    } 
+    }
     // player's health restores
-    public bool IsAlive() { 
+    public bool IsAlive()
+    {
         if (health <= 0)
         {
             return false;
@@ -32,6 +44,10 @@ class Player
         {
             return true;
         }
-    } 
-    // checks whether the player is alive or not}
+
+    }
+
 }
+//damage staat in de game file in rij 186 :)
+
+

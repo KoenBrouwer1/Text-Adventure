@@ -31,7 +31,7 @@ class Room
 	//     Exits: north, west
 	public string GetLongDescription()
 	{
-		string str = "You are ";
+		string str = ""; //zet hier discription in van de kamers
 		str += description;
 		str += ".\n";
 		str += GetExitString();
@@ -58,18 +58,18 @@ class Room
 
 		return str;
 	}
-	   // Field
-    private readonly Inventory chest;
+	// Field
+	private readonly Inventory chest;
 
-    // Property
-    public Inventory Chest => chest;
+	// Property
+	public Inventory Chest => chest;
 
-    // Constructor
-    public Room()
-    {
-        // A Room can handle a big Inventory
-        chest = new Inventory(999999);
-    }
+	// Constructor
+	public Room()
+	{
+		// A Room can handle a big Inventory
+		chest = new Inventory(999999);
+	}
 }
 
 

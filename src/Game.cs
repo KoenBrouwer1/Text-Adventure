@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 class Game
 {
-	
+
 	// Private fields
 	private Parser parser;
 	private Player player;
@@ -21,42 +21,49 @@ class Game
 	private void CreateRooms()
 	{
 		// Create the rooms
-		Room outside = new Room("outside the main entrance of the university");
-		Room theatre = new Room("in a lecture theatre");
-		Room pub = new Room("in the campus pub");
-		Room lab = new Room("in a computing lab");
-		Room office = new Room("in the computing admin office");
-		Room park = new Room("in the park");
+		Room start = new Room("you are deep into the woods");
+		Room house = new Room("you found a cabin in the woods");
+		Room pool = new Room("you found a abandoned swimming pool deep in the woods");
+		Room lab = new Room("you found mysterious lab in the woods");
+		Room park = new Room("you are in a park its dark but you feel like u have been here before");
 		Room basement = new Room("in the basement");
-		Room fountain = new Room("by the fountain");
+		Room fountain = new Room("you are by the fountain, maybe there is somthing here?");
 		Room darkbasement = new Room("in the dark basement, it's dark in here, wont find anything useful in here");
+		Room insidehouse = new Room("its a small house, you hope you find something useful in here");
+		Room insidelab = new Room("you are inside of the lab and you didnt find anything");
 
 		// Initialise room exits
-		outside.AddExit("east", theatre);
-		outside.AddExit("south", lab);
-		outside.AddExit("west", pub);
-		outside.AddExit("north", park);
-		outside.AddExit("down", basement);
+		start.AddExit("east", house);
+		start.AddExit("south", lab);
+		start.AddExit("west", pool);
+		start.AddExit("north", park);
+		// start.AddExit("down", basement);
 
 
-		basement.AddExit("up", outside);
+		basement.AddExit("up", house);
 		basement.AddExit("north", darkbasement);
 
 		darkbasement.AddExit("south", basement);
+		darkbasement.AddExit("outside", house);
 
-		theatre.AddExit("west", outside);
+		house.AddExit("west", start);
+		house.AddExit("inside", insidehouse);
 
-		park.AddExit("south", outside);
+		insidehouse.AddExit("outside", house);
+		insidehouse.AddExit("down", basement);
+
+		park.AddExit("south", start);
 		park.AddExit("east", fountain);
 
 		fountain.AddExit("west", park);
 
-		pub.AddExit("east", outside);
+		pool.AddExit("east", start);
 
-		lab.AddExit("north", outside);
-		lab.AddExit("east", office);
+		lab.AddExit("north", start);
+		lab.AddExit("inside", insidelab);
 
-		office.AddExit("west", lab);
+		insidelab.AddExit("outside", lab);
+
 
 		// Create your Items here
 		// ...
@@ -69,12 +76,8 @@ class Game
 		// And add them to the Rooms
 		// ...
 
-
-		// basement.AddItem(sword);
-		// darkbasement.AddItem(shield);
-
 		// Start game outside
-		player.CurrentRoom = outside;
+		player.CurrentRoom = start;
 	}
 
 	//  Main play routine. Loops until end of play.
@@ -99,10 +102,15 @@ class Game
 	private void PrintWelcome()
 	{
 		Console.WriteLine();
-		Console.WriteLine("Welcome to Zuul!");
-		Console.WriteLine("Zuul is a new, incredibly boring adventure game.");
+		Console.WriteLine("Welcome to my text-adventure");
+		Console.WriteLine();
+		Console.WriteLine("This is a simple text-based adventure game.");
+		Console.WriteLine("You are lost in the woods and you need to escape.");
+		Console.WriteLine("you have 100 health points.");
+		Console.WriteLine();
 		Console.WriteLine("Type 'help' if you need help.");
-		Console.WriteLine("");
+		Console.WriteLine();
+		
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
 	}
 
@@ -115,7 +123,8 @@ class Game
 
 		if (command.IsUnknown())
 		{
-			Console.WriteLine("I don't know what you mean...");
+			
+			
 			return wantToQuit; // false
 		}
 
@@ -150,7 +159,7 @@ class Game
 	private void PrintHelp()
 	{
 		Console.WriteLine("You are lost. You are alone.");
-		Console.WriteLine("You wander around at the university.");
+		Console.WriteLine("You are wandering around in the forest.");
 		Console.WriteLine();
 		// let the parser print the commands
 		parser.PrintValidCommands();
@@ -160,7 +169,7 @@ class Game
 	// room, otherwise print an error message.
 	private void GoRoom(Command command)
 	{
-		if(!command.HasSecondWord())
+		if (!command.HasSecondWord())
 		{
 			// if there is no second word, we don't know where to go...
 			Console.WriteLine("Go where?");
@@ -171,12 +180,13 @@ class Game
 
 		// Try to go to the next room.
 		Room nextRoom = player.CurrentRoom.GetExit(direction);
-		player.Damage(10);
+		player.Damage(5); // player takes 10 damage when moving
 		if (nextRoom == null)
 		{
 			Console.WriteLine("There is no door to " + direction + "!");
 			return;
 		}
+
 
 		player.CurrentRoom = nextRoom;
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
@@ -190,6 +200,8 @@ class Game
 	{
 		Console.WriteLine("Player's health: " + player.health);
 	}
+
+
 
 
 }
