@@ -4,13 +4,15 @@ class Player
 {
     // auto property
     public Room CurrentRoom { get; set; }
-    public int health; //zet health nog op private later en fix die melding :)
+    private int health = 100;
+    
+     //zet health nog op private later en fix die melding :)
 
-    // public int Health
-    // {
-    //     get { return health; }
-    //     set { health = value; }
-    // }
+    public int Health
+    {
+        get { return health; }
+        set { health = value; }
+    }
 
 
     // constructor
