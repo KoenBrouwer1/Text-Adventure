@@ -21,16 +21,16 @@ class Game
 	private void CreateRooms()
 	{
 		// Create the rooms
-		Room start = new Room("you are deep into the woods");
-		Room house = new Room("you found a cabin in the woods");
-		Room pool = new Room("you found a abandoned swimming pool deep in the woods");
-		Room lab = new Room("you found mysterious lab in the woods");
-		Room park = new Room("you are in a park its dark but you feel like u have been here before");
-		Room basement = new Room("you are in the basement, maybe we should go back but there could be something useful in here if we go further in");
-		Room fountain = new Room("you are by the fountain, maybe there is somthing here?");
-		Room darkbasement = new Room("in the dark basement, it's dark in here but maybe there could be something here");
-		Room insidehouse = new Room("its a small house, you hope you find something useful in here");
-		Room insidelab = new Room("you are inside of the lab and you didnt find anything");
+		Room start = new Room("you are deep into the woods.");
+		Room house = new Room("you found a cabin in the woods.");
+		Room pool = new Room("you found a abandoned swimming pool deep in the woods.");
+		Room lab = new Room("you found mysterious lab in the woods.");
+		Room park = new Room("you are in a park its dark but you feel like u have been here before.");
+		Room basement = new Room("you are in the basement, maybe we should go back but there could be something useful in here if we go further in.");
+		Room fountain = new Room("you are by the fountain, maybe there is something here?");
+		Room darkbasement = new Room("in the dark basement, it's dark in here but maybe there could be something here.");
+		Room insidehouse = new Room("its a small house, you hope you find something useful in here.");
+		Room insidelab = new Room("you are inside of the lab and you didnt find anything.");
 
 		// Initialise room exits
 		start.AddExit("east", house);
@@ -75,9 +75,10 @@ class Game
 
 		// Create your Items here
 		// ...
-		Item sword = new Item(2, "Sword");
-		Item shield = new Item(5, "Shield");
-		Item healthpotion = new Item(5, "Health Potion");
+
+		// Item sword = new Item(2, "Sword");
+		// Item shield = new Item(5, "Shield");
+		// Item healthpotion = new Item(5, "Health Potion");
 
 
 
@@ -141,19 +142,19 @@ class Game
 		{
 			case "help":
 				PrintHelp();
-			break;
+				break;
 			case "go":
 				GoRoom(command);
-			break;
+				break;
 			case "quit":
 				wantToQuit = true;
-			break;
+				break;
 			case "look":
 				Look();
-			break;
+				break;
 			case "status":
 				Status();
-			break;
+				break;
 		}
 
 		return wantToQuit;
@@ -167,9 +168,10 @@ class Game
 	// Here we print the mission and a list of the command words.
 	private void PrintHelp()
 	{
-		Console.WriteLine("You are lost. You are alone.");
+		Console.WriteLine("You are lost, You are alone.");
 		Console.WriteLine("You are wandering around in the forest.");
 		Console.WriteLine();
+		
 		// let the parser print the commands
 		parser.PrintValidCommands();
 	}

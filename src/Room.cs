@@ -33,7 +33,7 @@ class Room
 	{
 		string str = ""; //zet hier discription in van de kamers
 		str += description;
-		str += ".\n";
+		str += "\n"; //voor de punt enzo
 		str += GetExitString();
 		return str;
 	}
@@ -71,5 +71,3 @@ class Room
 		chest = new Inventory(999999);
 	}
 }
-
-
