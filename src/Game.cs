@@ -76,15 +76,12 @@ class Game
 		// Create your Items here
 		// ...
 
-		// Item sword = new Item(2, "Sword");
-		// Item shield = new Item(5, "Shield");
-		// Item healthpotion = new Item(5, "Health Potion");
+
 
 
 
 		// And add them to the Rooms
 		// ...
-
 
 		// Start game outside
 		player.CurrentRoom = start;
@@ -116,7 +113,9 @@ class Game
 		Console.WriteLine();
 		Console.WriteLine("This is a simple text-based adventure game.");
 		Console.WriteLine("You are lost in the woods and you need to escape.");
-		Console.WriteLine("you have 100 health points.");
+		Console.WriteLine("You are hurt causing you to lose health points when moving.");
+		Console.WriteLine("Your objective is to escape the creature that hurt you.");
+		Console.WriteLine("You have 100 health points.");
 		Console.WriteLine();
 		Console.WriteLine("Type 'help' if you need help.");
 		Console.WriteLine();
@@ -125,7 +124,7 @@ class Game
 	}
 
 	// Given a command, process (that is: execute) the command.
-	// If this command ends the game, it returns true.
+	// If this command ends the game, ip;p;cffffffffffffcxffft returns true.
 	// Otherwise false is returned.
 	private bool ProcessCommand(Command command)
 	{
@@ -155,6 +154,15 @@ class Game
 			case "status":
 				Status();
 				break;
+				case "take":
+				Take(command);
+				break;
+				case "drop":
+				Drop(command);
+				break;
+				// case "use":
+				// Use(command);
+				// break;
 		}
 
 		return wantToQuit;
@@ -210,6 +218,16 @@ class Game
 	private void Status()
 	{
 		Console.WriteLine("Player's health: " + player.Health);
+		// Console.WriteLine("Inventory: " + Inventory); 
 	}
+	 // Methods
+    private void Take(Command command)
+    {
+        // TODO: Implement logic for taking an item
+    }
 
+    private void Drop(Command command)
+    {
+        // TODO: Implement logic for dropping an item
+    }
 }
