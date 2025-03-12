@@ -2,73 +2,75 @@ using System.Collections.Generic;
 
 class Room
 {
-	// Private fields
-	private string description;
-	private Dictionary<string, Room> exits; // stores exits of this room.
+    // Private fields
+    private string description;
+    private Dictionary<string, Room> exits; // stores exits of this room.
+    private readonly Inventory chest;
 
-	// Create a room described "description". Initially, it has no exits.
-	// "description" is something like "in a kitchen" or "in a court yard".
-	public Room(string desc)
-	{
-		description = desc;
-		exits = new Dictionary<string, Room>();
-	}
+    // Property
+    public Inventory Chest => chest;
 
-	// Define an exit for this room.
-	public void AddExit(string direction, Room neighbor)
-	{
-		exits.Add(direction, neighbor);
-	}
+    // Constructor
+    public Room(string desc)
+    {
+        description = desc;
+        exits = new Dictionary<string, Room>();
+        chest = new Inventory(999999); // Initialize the chest with a large max weight
+    }
 
-	// Return the description of the room.
-	public string GetShortDescription()
-	{
-		return description;
-	}
+    // Define an exit for this room.
+    public void AddExit(string direction, Room neighbor)
+    {
+        exits.Add(direction, neighbor);
+    }
 
-	// Return a long description of this room, in the form:
-	//     You are in the kitchen.
-	//     Exits: north, west
-	public string GetLongDescription()
-	{
-		string str = ""; //zet hier discription in van de kamers
-		str += description;
-		str += "\n"; //voor de punt enzo
-		str += GetExitString();
-		return str;
-	}
+    // Return the description of the room.
+    public string GetShortDescription()
+    {
+        return description;
+    }
 
-	// Return the room that is reached if we go from this room in direction
-	// "direction". If there is no room in that direction, return null.
-	public Room GetExit(string direction)
-	{
-		if (exits.ContainsKey(direction))
-		{
-			return exits[direction];
-		}
-		return null;
-	}
+    // Return a long description of this room, in the form:
+    //     You are in the kitchen.
+    //     Exits: north, west
+    public string GetLongDescription()
+    {
+        string str = ""; //zet hier discription in van de kamers
+        str += description;
+        str += "\n"; //voor de punt enzo
+        str += GetExitString();
+        return str;
+    }
 
-	// Return a string describing the room's exits, for example
-	// "Exits: north, west".
-	private string GetExitString()
-	{
-		
-		string str = "Exits: ";
-		str += String.Join(", ", exits.Keys);
+    // Return the room that is reached if we go from this room in direction
+    // "direction". If there is no room in that direction, return null.
+    public Room GetExit(string direction)
+    {
+        if (exits.ContainsKey(direction))
+        {
+            return exits[direction];
+        }
+        return null;
+    }
 
-		return str;
-	}
-	// Field
-	private readonly Inventory chest;
+    // Return a string describing the room's exits, for example
+    // "Exits: north, west".
+    private string GetExitString()
+    {
+        string str = "Exits: ";
+        str += String.Join(", ", exits.Keys);
+        return str;
+    }
 
-	// Property
-	public Inventory Chest => chest;
+    // Method to add an item to the room's inventory
+    public void AddItem(string itemName, Item item)
+    {
+        chest.Put(itemName, item);
+    }
 
-	// Constructor
-	public Room()
-	{
-		// A Room can handle a big Inventory
-		chest = new Inventory(999999);
-	}
+    // Method to remove an item from the room's inventory
+    public Item RemoveItem(string itemName)
+    {
+        return chest.Get(itemName);
+    }
 }

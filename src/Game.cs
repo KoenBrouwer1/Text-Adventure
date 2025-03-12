@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 
 class Game
 {
@@ -87,6 +86,9 @@ class Game
 
 		// Add items to the rooms
 
+		basement.AddItem("sword", sword);
+		insidehouse.AddItem("shield", shield);
+		fountain.AddItem("potion", potion);
 
 		// The end
 		// if (End == player.CurrentRoom)
@@ -252,18 +254,22 @@ class Game
 	}
 
 	private void Look()
-	{
-		Console.WriteLine(player.CurrentRoom.GetLongDescription());
-	}
+{
+    List<string> items = player.CurrentRoom.Chest.ListItems();
+    if (items.Count > 0)
+    {
+        Console.WriteLine("Items in the room: " + string.Join(", ", items));
+    }
+    else
+    {
+        Console.WriteLine("No items in the room.");
+    }
+}
 	private void Status()
 	{
 		Console.WriteLine("Player's health: " + player.Health);
 
 		Console.WriteLine("your inventory: " + player.Inventory);
-		// if (player.Inventory.TotalWeight() < 0)
-		// {
-		// 	Console.WriteLine("empty");
-		// }
 
 	}
 
@@ -271,7 +277,7 @@ class Game
 	// Methods
 	private void Take(Command command)
 	{
-		// TODO: Implement logic for taking an item
+		
 	}
 
 	private void Drop(Command command)
