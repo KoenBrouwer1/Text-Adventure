@@ -1,16 +1,17 @@
 class Item
 {
 
+
 	//fields
-	static void Items()
+	static void items()
     {
         List<Item> Inventory = new List<Item>();
 
-        // Items aanmaken en toevoegen aan de lijst
-        Inventory.Add(new Item(5, "A small health potion"));
-        Inventory.Add(new Item(10, "A sturdy iron sword"));
-        Inventory.Add(new Item(3, "A magic scroll"));
 
+
+        Inventory.Add(new Item(10, "A sturdy iron sword"));
+        Inventory.Add(new Item(3, "A shield"));
+        Inventory.Add(new Item(5, "A small health potion"));
         // Inventaris tonen
         foreach (Item item in Inventory)
         {
@@ -56,4 +57,13 @@ class Item
         // TODO: Implement logic for using an item
         return $"You used {itemName}.";
     }
+    // Example Item class
+
+    public string Name { get; set; }
+
+    public Item(string name, int weight)
+    {
+        Name = name;
+    }
+    
 }

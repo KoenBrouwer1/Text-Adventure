@@ -53,6 +53,7 @@ class Room
 	// "Exits: north, west".
 	private string GetExitString()
 	{
+		
 		string str = "Exits: ";
 		str += String.Join(", ", exits.Keys);
 

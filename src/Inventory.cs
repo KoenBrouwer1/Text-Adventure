@@ -1,13 +1,14 @@
 using System;
+using System.Collections.Generic;
 
 class Inventory
 {
-    // Fields
+    
+    
     private int maxWeight;
     private Dictionary<string, Item> items;
 
     // Constructor
-    
     public Inventory(int maxWeight)
     {
         this.maxWeight = maxWeight;
@@ -42,22 +43,35 @@ class Inventory
     public int TotalWeight()
     {
         int total = 0;
-        // TODO implement:
-        // loop through the items, and add all the weights
-
         foreach (var item in items.Values)
         {
             total += item.Weight;
         }
         return total;
-        
-    }   
+    }
 
     public int FreeWeight()
     {
         return maxWeight - TotalWeight();
     }
+
+    // New method to list all items
+    public List<string> ListItems()
+    {
+        return new List<string>(items.Keys);
+    }
+
+    // New method to display the status of the inventory
+    public void Status()
+    {
+        Console.WriteLine("Inventory Status:");
+        Console.WriteLine($"Total Weight: {TotalWeight()} / {maxWeight}");
+        Console.WriteLine("Items:");
+        foreach (var itemName in ListItems())
+        {
+            Console.WriteLine($"- {itemName}");
+        }
+    }
 }
 
-// Example Item class
 

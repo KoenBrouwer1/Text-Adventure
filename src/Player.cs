@@ -7,6 +7,7 @@ class Player
     public Room CurrentRoom { get; set; }
     private int health = 100;
 
+    public Inventory Inventory { get; private set; }
     public int Health
     {
         get { return health; }

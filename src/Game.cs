@@ -26,11 +26,12 @@ class Game
 		Room pool = new Room("you found a abandoned swimming pool deep in the woods.");
 		Room lab = new Room("you found mysterious lab in the woods.");
 		Room park = new Room("you are in a park its dark but you feel like u have been here before.");
-		Room basement = new Room("you are in the basement, maybe we should go back but there could be something useful in here if we go further in.");
+		Room basement = new Room("you are in the basement, maybe we should go back but there could be something useful in here.");
 		Room fountain = new Room("you are by the fountain, maybe there is something here?");
 		Room darkbasement = new Room("in the dark basement, it's dark in here but maybe there could be something here.");
 		Room insidehouse = new Room("its a small house, you hope you find something useful in here.");
 		Room insidelab = new Room("you are inside of the lab and you didnt find anything.");
+		Room End = new Room("You have successfully escaped the creature and you are safe for now.");
 
 		// Initialise room exits
 		start.AddExit("east", house);
@@ -41,11 +42,11 @@ class Game
 
 		//basement
 		basement.AddExit("up", house);
-		basement.AddExit("north", darkbasement);
+		// basement.AddExit("north", darkbasement);
 
 		//darkbasement
-		darkbasement.AddExit("south", basement);
-		darkbasement.AddExit("outside", house);
+		darkbasement.AddExit("up", insidelab);
+		darkbasement.AddExit("south", End);
 
 		//house
 		house.AddExit("west", start);
@@ -71,17 +72,40 @@ class Game
 
 		//insidelab
 		insidelab.AddExit("outside", lab);
+		insidelab.AddExit("down", darkbasement);
+
+		//End
+		End.AddExit("back", start);
 
 
 		// Create your Items here
 		// ...
 
+		Item sword = new Item(10, "A sturdy iron sword");
+		Item shield = new Item(3, "A shield");
+		Item potion = new Item(5, "A small health potion");
+
+		// Add items to the rooms
+
+
+		// The end
+		// if (End == player.CurrentRoom)
+		// {
+		// 	Console.WriteLine("You have successfully escaped the creature and you are safe for now.");
+		// 	Console.WriteLine("Press [Enter] to continue.");
+		// 	Console.ReadLine();
+		// 	Environment.Exit(0);
+		// }
 
 
 
 
 		// And add them to the Rooms
 		// ...
+
+		// insidehouse.new Item("sword", sword);
+		// insidehouse.new Item("shield", shield);
+
 
 		// Start game outside
 		player.CurrentRoom = start;
@@ -154,10 +178,10 @@ class Game
 			case "status":
 				Status();
 				break;
-				case "take":
+			case "take":
 				Take(command);
 				break;
-				case "drop":
+			case "drop":
 				Drop(command);
 				break;
 				// case "use":
@@ -179,7 +203,7 @@ class Game
 		Console.WriteLine("You are lost, You are alone.");
 		Console.WriteLine("You are wandering around in the forest.");
 		Console.WriteLine();
-		
+
 		// let the parser print the commands
 		parser.PrintValidCommands();
 	}
@@ -193,22 +217,38 @@ class Game
 			// if there is no second word, we don't know where to go...
 			Console.WriteLine("Go where?");
 			return;
+
+
 		}
 
 		string direction = command.SecondWord;
 
 		// Try to go to the next room.
 		Room nextRoom = player.CurrentRoom.GetExit(direction);
-		player.Damage(5); // player takes 10 damage when moving
+		player.Damage(10); // player takes 10 damage when moving
 		if (nextRoom == null)
 		{
 			Console.WriteLine("There is no door to " + direction + "!");
 			return;
 		}
 
+		if (player.Health >= 10)
+		{
+			player.CurrentRoom = nextRoom;
+			Console.WriteLine(player.CurrentRoom.GetLongDescription());
+		}
 
-		player.CurrentRoom = nextRoom;
-		Console.WriteLine(player.CurrentRoom.GetLongDescription());
+		if (player.Health <= 0)
+		{
+			// Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("You bled out, game over.");
+			Console.WriteLine("If you wish to play again press [Enter] and type 'dotnet run' in the console.");
+			Console.ReadLine();
+			Environment.Exit(0);
+		}
+
+
 	}
 
 	private void Look()
@@ -218,16 +258,24 @@ class Game
 	private void Status()
 	{
 		Console.WriteLine("Player's health: " + player.Health);
-		// Console.WriteLine("Inventory: " + Inventory); 
-	}
-	 // Methods
-    private void Take(Command command)
-    {
-        // TODO: Implement logic for taking an item
-    }
 
-    private void Drop(Command command)
-    {
-        // TODO: Implement logic for dropping an item
-    }
+		Console.WriteLine("your inventory: " + player.Inventory);
+		// if (player.Inventory.TotalWeight() < 0)
+		// {
+		// 	Console.WriteLine("empty");
+		// }
+
+	}
+
+
+	// Methods
+	private void Take(Command command)
+	{
+		// TODO: Implement logic for taking an item
+	}
+
+	private void Drop(Command command)
+	{
+		// TODO: Implement logic for dropping an item
+	}
 }
