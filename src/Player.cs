@@ -21,7 +21,8 @@ class Player
 
         CurrentRoom = null;
         health = 100;
-        Inventory inventory = new Inventory(10);
+        Inventory inventory = new Inventory(15);
+        
     }
 
     // methods

@@ -26,4 +26,4 @@ status: Check your health and inventory.
 help: Display available commands.
 quit: Exit the game.
 
-## Goodluck.
+## Goodluck

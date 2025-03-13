@@ -7,11 +7,12 @@ class Item
     {
         List<Item> Inventory = new List<Item>();
 
-
+        Player player = new Player();
 
         Inventory.Add(new Item(10, "A sturdy iron sword"));
         Inventory.Add(new Item(3, "A shield"));
         Inventory.Add(new Item(5, "A small health potion"));
+        Inventory.Add(new Item(1, "A key"));
         // Inventaris tonen
         foreach (Item item in Inventory)
         {

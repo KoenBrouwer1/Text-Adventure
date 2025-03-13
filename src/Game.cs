@@ -80,15 +80,24 @@ class Game
 		// Create your Items here
 		// ...
 
-		Item sword = new Item(10, "A sturdy iron sword");
-		Item shield = new Item(3, "A shield");
-		Item potion = new Item(5, "A small health potion");
+		Item sword = new Item(5, "A sturdy iron sword");
+		Item stick = new Item(1, "a fragile stick");
+		Item potion = new Item(2, "A health potion");
+		Item key = new Item(1, "key");
 
 		// Add items to the rooms
 
 		basement.AddItem("sword", sword);
-		insidehouse.AddItem("shield", shield);
+
+		start.AddItem("stick", stick);
+
+
+		start.AddItem("potion", potion);
 		fountain.AddItem("potion", potion);
+		insidelab.AddItem("potion", potion);
+
+		pool.AddItem("key", key);
+
 
 		// The end
 		// if (End == player.CurrentRoom)
@@ -254,17 +263,17 @@ class Game
 	}
 
 	private void Look()
-{
-    List<string> items = player.CurrentRoom.Chest.ListItems();
-    if (items.Count > 0)
-    {
-        Console.WriteLine("Items in the room: " + string.Join(", ", items));
-    }
-    else
-    {
-        Console.WriteLine("No items in the room.");
-    }
-}
+	{
+		List<string> items = player.CurrentRoom.Chest.ListItems();
+		if (items.Count > 0)
+		{
+			Console.WriteLine("Items in the room: " + string.Join(", ", items));
+		}
+		else
+		{
+			Console.WriteLine("No items in the room.");
+		}
+	}
 	private void Status()
 	{
 		Console.WriteLine("Player's health: " + player.Health);
@@ -277,11 +286,22 @@ class Game
 	// Methods
 	private void Take(Command command)
 	{
-		
+		if (!command.HasSecondWord())
+		{
+			Console.WriteLine("Take what?");
+			return;
+		}
+
+		else
+		{
+			Console.WriteLine("sorry cant take a " + command.SecondWord + " in this version");
+		}
+
+
 	}
 
 	private void Drop(Command command)
 	{
-		// TODO: Implement logic for dropping an item
+
 	}
 }
