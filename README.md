@@ -18,10 +18,17 @@ You are lost and alone, wandering around in a mysterious forest. Your objective 
 
 ## 🕹️ Commands
 **go:** [direction]: Move to a different room (e.g., go north).
+
 **look:** Look around the current room to see exits and items.
-**use:** [item]: Use an item from your inventory (e.g., use potion).
+
+**use:** [item]: Use an item from your inventory (e.g., use potion)
+.
 **take:** [item]: Pick up an item (e.g., take sword).
+
 **drop:** [item]: Drop an item from your inventory (e.g., drop shield).
+
 **status:** Check your health and inventory.
+
 **help:** Display available commands.
+
 **quit:** Exit the game.
