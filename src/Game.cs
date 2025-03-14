@@ -84,19 +84,29 @@ class Game
 		Item stick = new Item(1, "a fragile stick");
 		Item potion = new Item(2, "A health potion");
 		Item key = new Item(1, "key");
-
+		Item rock = new Item(1, "a rock");
 		// Add items to the rooms
 
-		basement.AddItem("sword", sword);
+		insidehouse.AddItem("sword", sword);
 
 		start.AddItem("stick", stick);
+		lab.AddItem("stick", stick);
+		house.AddItem("stick", stick);
+
+		start.AddItem("rock", rock);
+		lab.AddItem("rock", rock);
+		house.AddItem("rock", rock);
 
 
 		start.AddItem("potion", potion);
 		fountain.AddItem("potion", potion);
 		insidelab.AddItem("potion", potion);
 
-		pool.AddItem("key", key);
+		basement.AddItem("key", key);
+
+		
+
+
 
 
 		// The end
@@ -249,7 +259,7 @@ class Game
 			Console.WriteLine(player.CurrentRoom.GetLongDescription());
 		}
 
-		if (player.Health <= 0)
+		if (player.Health <= 1)
 		{
 			// Console.WriteLine();
 			Console.WriteLine();
@@ -302,6 +312,14 @@ class Game
 
 	private void Drop(Command command)
 	{
-
+		if (!command.HasSecondWord())
+		{
+			Console.WriteLine("Drop what?");
+			return;
+		}
+		else
+		{
+			Console.WriteLine("sorry cant drop a " + command.SecondWord + " in this version");
+		}
 	}
 }
