@@ -5,6 +5,7 @@ class Inventory
 {
     
     
+    
     private int maxWeight;
     private Dictionary<string, Item> items;
 
@@ -72,6 +73,13 @@ class Inventory
             Console.WriteLine($"- {itemName}");
         }
     }
+     public string Show()
+    {
+        string result = "";
+        foreach (var itemName in ListItems())
+        {
+            result += itemName + " ";
+        }
+        return result;
+    }
 }
-
-

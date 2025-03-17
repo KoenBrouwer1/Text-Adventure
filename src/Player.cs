@@ -2,6 +2,13 @@
 //test
 class Player
 {
+    public Inventory backpack { get; set; }
+
+
+    public string Use(string itemName)
+    {
+        return $"You used {itemName}.";
+    }
 
     // auto property
     public Room CurrentRoom { get; set; }
@@ -21,8 +28,8 @@ class Player
 
         CurrentRoom = null;
         health = 100;
-        Inventory inventory = new Inventory(15);
-        
+        backpack = new Inventory(25);
+
     }
 
     // methods
@@ -38,16 +45,41 @@ class Player
         return health;
     }
     // player's health restores
-    public bool IsAlive()
+    public bool TakeFromChest(string itemName)
     {
-        if (health <= 0)
+        Item item = CurrentRoom.Chest.Get(itemName);
+        if (item != null)
         {
-            return false;
+            if (backpack.Put(itemName, item))
+            {
+                Console.WriteLine($"You took {itemName} in your backpack.");
+                return true;
+            }
+            else
+            {
+                CurrentRoom.Chest.Put(itemName, item);
+                return false;
+            }
         }
-        else
+        return false;
+    }
+
+    public bool DropToChest(string itemName)
+    {
+        Item item = backpack.Get(itemName);
+        if (item != null)
         {
-            return true;
+            if (CurrentRoom.Chest.Put(itemName, item))
+            {
+                Console.WriteLine($"You dropped {itemName} in the room.");
+                return true;
+            }
+            else
+            {
+                backpack.Put(itemName, item);
+                return false;
+            }
         }
+        return false;
     }
 }
-//damage staat in de game file in rij 186 :)

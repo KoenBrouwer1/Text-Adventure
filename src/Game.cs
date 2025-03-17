@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 
 class Game
 {
@@ -24,9 +25,8 @@ class Game
 		Room house = new Room("you found a cabin in the woods.");
 		Room pool = new Room("you found a abandoned swimming pool deep in the woods.");
 		Room lab = new Room("you found mysterious lab in the woods.");
-		Room park = new Room("you are in a park its dark but you feel like u have been here before.");
+		Room deepwoods = new Room("you are in the deep woods, It dark here");
 		Room basement = new Room("you are in the basement, maybe we should go back but there could be something useful in here.");
-		Room fountain = new Room("you are by the fountain, maybe there is something here?");
 		Room darkbasement = new Room("in the dark basement, it's dark in here but maybe there could be something here.");
 		Room insidehouse = new Room("its a small house, you hope you find something useful in here.");
 		Room insidelab = new Room("you are inside of the lab and you didnt find anything.");
@@ -36,12 +36,11 @@ class Game
 		start.AddExit("east", house);
 		start.AddExit("south", lab);
 		start.AddExit("west", pool);
-		start.AddExit("north", park);
+		start.AddExit("north", deepwoods);
 
 
 		//basement
 		basement.AddExit("up", house);
-		// basement.AddExit("north", darkbasement);
 
 		//darkbasement
 		darkbasement.AddExit("up", insidelab);
@@ -55,12 +54,8 @@ class Game
 		insidehouse.AddExit("outside", house);
 		insidehouse.AddExit("down", basement);
 
-		//park
-		park.AddExit("south", start);
-		park.AddExit("east", fountain);
-
-		//fountain
-		fountain.AddExit("west", park);
+		//deepwoods
+		deepwoods.AddExit("south", start);
 
 		//pool
 		pool.AddExit("east", start);
@@ -99,12 +94,12 @@ class Game
 
 
 		start.AddItem("potion", potion);
-		fountain.AddItem("potion", potion);
+		deepwoods.AddItem("potion", potion);
 		insidelab.AddItem("potion", potion);
 
 		basement.AddItem("key", key);
 
-		
+
 
 
 
@@ -117,16 +112,6 @@ class Game
 		// 	Console.ReadLine();
 		// 	Environment.Exit(0);
 		// }
-
-
-
-
-		// And add them to the Rooms
-		// ...
-
-		// insidehouse.new Item("sword", sword);
-		// insidehouse.new Item("shield", shield);
-
 
 		// Start game outside
 		player.CurrentRoom = start;
@@ -205,9 +190,7 @@ class Game
 			case "drop":
 				Drop(command);
 				break;
-				// case "use":
-				// Use(command);
-				// break;
+
 		}
 
 		return wantToQuit;
@@ -259,7 +242,7 @@ class Game
 			Console.WriteLine(player.CurrentRoom.GetLongDescription());
 		}
 
-		if (player.Health <= 1)
+		if (player.Health <= 0)
 		{
 			// Console.WriteLine();
 			Console.WriteLine();
@@ -288,7 +271,7 @@ class Game
 	{
 		Console.WriteLine("Player's health: " + player.Health);
 
-		Console.WriteLine("your inventory: " + player.Inventory);
+		Console.WriteLine("your inventory: " + string.Join(", ", player.backpack.ListItems()));
 
 	}
 
@@ -301,11 +284,13 @@ class Game
 			Console.WriteLine("Take what?");
 			return;
 		}
-
 		else
 		{
-			Console.WriteLine("sorry cant take a " + command.SecondWord + " in this version");
+			string itemName = command.SecondWord;
+			player.TakeFromChest(itemName);
+
 		}
+
 
 
 	}
@@ -319,7 +304,8 @@ class Game
 		}
 		else
 		{
-			Console.WriteLine("sorry cant drop a " + command.SecondWord + " in this version");
+			string itemName = command.SecondWord;
+			player.DropToChest(itemName);
 		}
 	}
 }

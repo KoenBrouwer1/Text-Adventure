@@ -5,10 +5,10 @@ class Room
     // Private fields
     private string description;
     private Dictionary<string, Room> exits; // stores exits of this room.
-    private readonly Inventory chest;
+    private Inventory chest;
 
     // Property
-    public Inventory Chest => chest;
+    public Inventory Chest { get { return chest; } }
 
     // Constructor
     public Room(string desc)
