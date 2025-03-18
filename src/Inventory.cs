@@ -6,7 +6,14 @@ class Inventory
     
     
     
-    private int maxWeight;
+    public int maxWeight
+    {
+        get;
+        private set;
+    }
+
+
+  
     private Dictionary<string, Item> items;
 
     // Constructor
@@ -63,16 +70,7 @@ class Inventory
     }
 
     // New method to display the status of the inventory
-    public void Status()
-    {
-        Console.WriteLine("Inventory Status:");
-        Console.WriteLine($"Total Weight: {TotalWeight()} / {maxWeight}");
-        Console.WriteLine("Items:");
-        foreach (var itemName in ListItems())
-        {
-            Console.WriteLine($"- {itemName}");
-        }
-    }
+  
      public string Show()
     {
         string result = "";
