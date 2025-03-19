@@ -96,33 +96,69 @@ class Game
 
 		Random rng = new();
 
-		int kans1 = rng.Next(3);
-		int kans2 = rng.Next(3);
-		int kans3 = rng.Next(3);
+		int kans1 = rng.Next(4);
+		int kans2 = rng.Next(4);
+		int kans3 = rng.Next(4);
+		int kans4 = rng.Next(4);
+		int kans5 = rng.Next(4);
+		int kans6 = rng.Next(4);
+		int kans7 = rng.Next(4);
+		int kans8 = rng.Next(4);
+		int kans9 = rng.Next(4);
+		int kans10 = rng.Next(4);
 
-		Console.WriteLine($"Rand1: {kans1}");
-		Console.WriteLine($"Rand2: {kans2}");
-		Console.WriteLine($"Rand3: {kans3}");
+
+		Console.WriteLine($"kans1: {kans1}");
+		Console.WriteLine($"kans2: {kans2}");
+		Console.WriteLine($"kans3: {kans3}");
+		Console.WriteLine($"kans4: {kans4}");
+		Console.WriteLine($"kans5: {kans5}");
+		Console.WriteLine($"kans6: {kans6}");
+		Console.WriteLine($"kans7: {kans7}");
+		Console.WriteLine($"kans8: {kans8}");
+		Console.WriteLine($"kans9: {kans9}");
+		Console.WriteLine($"kans10: {kans10}");
+
 
 		if (kans1 == 1)
 		{
 			deepwoods.AddItem("potion", potion);
-			pool.AddItem("potion", potion);
-			house.AddItem("potion", potion);
 		}
 		else if (kans2 == 1)
 		{
-			insidelab.AddItem("potion", potion);
-			cave.AddItem("potion", potion);
 			darkbasement.AddItem("potion", potion);
-			insidehouse.AddItem("potion", potion);
 		}
 		else if (kans3 == 1)
 		{
+			pool.AddItem("potion", potion);
+		}
+		else if (kans4 == 1)
+		{
+			house.AddItem("potion", potion);
+		}
+		else if (kans5 == 1)
+		{
+			insidelab.AddItem("potion", potion);
+		}
+		else if (kans6 == 1)
+		{
+			cave.AddItem("potion", potion);
+		}
+		else if (kans7 == 1)
+		{
+			insidehouse.AddItem("potion", potion);
+		}
+		else if (kans8 == 1)
+		{
 			start.AddItem("potion", potion);
+		}
+		else if (kans9 == 1)
+		{
 			basement.AddItem("potion", potion);
+		}
+		else if (kans10 == 1)
+		{
 			lab.AddItem("potion", potion);
-
 		}
 
 		start.AddItem("stick", stick);
@@ -139,20 +175,8 @@ class Game
 		insidecave.AddItem("skull", skull);
 		insidecave.AddItem("basementkey", basementkey);
 
-
-
-
-
-		// The end
-
-
 		// Start game outside
 		player.CurrentRoom = start;
-	}
-
-	private int ToString(int rand1)
-	{
-		throw new NotImplementedException();
 	}
 
 	//  Main play routine. Loops until end of play.
@@ -176,6 +200,7 @@ class Game
 	// Print out the opening message for the player.
 	private void PrintWelcome()
 	{
+		Console.ForegroundColor = ConsoleColor.DarkMagenta;
 		Console.WriteLine();
 		Console.WriteLine("Welcome to my text-adventure");
 		Console.WriteLine();
@@ -184,10 +209,11 @@ class Game
 		Console.WriteLine("You are hurt causing you to lose health points when moving.");
 		Console.WriteLine("Your objective is to escape the creature that hurt you.");
 		Console.WriteLine("You have 100 health points.");
+		Console.WriteLine("to heal you have a chance to find a health potion in any room!!");
 		Console.WriteLine();
 		Console.WriteLine("Type 'help' if you need help.");
 		Console.WriteLine();
-
+		Console.ResetColor();
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
 	}
 
@@ -200,8 +226,6 @@ class Game
 
 		if (command.IsUnknown())
 		{
-
-
 			return wantToQuit; // false
 		}
 
@@ -231,18 +255,10 @@ class Game
 			case "use":
 				Use(command);
 				break;
-
 		}
 
 		return wantToQuit;
 	}
-
-	// ######################################
-	// implementations of user commands:
-	// ######################################
-
-	// Print out some help information.
-	// Here we print the mission and a list of the command words.
 	private void PrintHelp()
 	{
 		Console.WriteLine("You are lost, You are alone.");
@@ -252,14 +268,10 @@ class Game
 		// let the parser print the commands
 		parser.PrintValidCommands();
 	}
-
-	// Try to go to one direction. If there is an exit, enter the new
-	// room, otherwise print an error message.
 	private void GoRoom(Command command)
 	{
 		if (!command.HasSecondWord())
 		{
-			// if there is no second word, we don't know where to go...
 			Console.WriteLine("Go where?");
 			return;
 
@@ -268,9 +280,9 @@ class Game
 
 		string direction = command.SecondWord;
 
-		// Try to go to the next room.
+		
 		Room nextRoom = player.CurrentRoom.GetExit(direction);
-		player.Damage(10); // player takes 10 damage when moving
+		player.Damage(10); 
 		if (nextRoom == null)
 		{
 			Console.WriteLine("There is no door to " + direction + "!");
