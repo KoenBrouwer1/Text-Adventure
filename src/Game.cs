@@ -108,16 +108,16 @@ class Game
 		int kans10 = rng.Next(4);
 
 
-		Console.WriteLine($"kans1: {kans1}");
-		Console.WriteLine($"kans2: {kans2}");
-		Console.WriteLine($"kans3: {kans3}");
-		Console.WriteLine($"kans4: {kans4}");
-		Console.WriteLine($"kans5: {kans5}");
-		Console.WriteLine($"kans6: {kans6}");
-		Console.WriteLine($"kans7: {kans7}");
-		Console.WriteLine($"kans8: {kans8}");
-		Console.WriteLine($"kans9: {kans9}");
-		Console.WriteLine($"kans10: {kans10}");
+		// Console.WriteLine($"kans1: {kans1}");
+		// Console.WriteLine($"kans2: {kans2}");
+		// Console.WriteLine($"kans3: {kans3}");
+		// Console.WriteLine($"kans4: {kans4}");
+		// Console.WriteLine($"kans5: {kans5}");
+		// Console.WriteLine($"kans6: {kans6}");
+		// Console.WriteLine($"kans7: {kans7}");
+		// Console.WriteLine($"kans8: {kans8}");
+		// Console.WriteLine($"kans9: {kans9}");
+		// Console.WriteLine($"kans10: {kans10}");
 
 
 		if (kans1 == 1)

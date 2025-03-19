@@ -3,27 +3,20 @@ using System.Collections.Generic;
 
 class Inventory
 {
-    
-    
-    
     public int maxWeight
     {
         get;
         private set;
     }
 
-
-  
     private Dictionary<string, Item> items;
 
-    // Constructor
     public Inventory(int maxWeight)
     {
         this.maxWeight = maxWeight;
         this.items = new Dictionary<string, Item>();
     }
 
-    // Methods
     public bool Put(string itemName, Item item)
     {
         // Check if the item fits in the inventory
@@ -69,8 +62,6 @@ class Inventory
         return new List<string>(items.Keys);
     }
 
-    // New method to display the status of the inventory
-  
      public string Show()
     {
         string result = "";
