@@ -73,6 +73,7 @@ class Player
         Console.ResetColor();
 
         return false;
+        
     }
 
     public bool DropToChest(string itemName)
@@ -89,56 +90,47 @@ class Player
             {
                 backpack.Put(itemName, item);
                 return false;
-            }
+            }  
+        }
+        else
+        {
+            Console.WriteLine("what do you mean");
         }
         return false;
     }
     public string Use(string itemName)
     {
 
-
-        switch (itemName)
-        {
-            case "sword":
-                UseSword();
-                return itemName;
-
-            case "potion":
-                if (backpack.Get(itemName) == null)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"You don't have a {itemName} in your inventory.");
-                    Console.ResetColor();
-                    return null;
-                }
-                UsePotion(itemName);
-                return itemName;
-
-            case "endkey":
-                if (backpack.Get(itemName) == null)
-                {     if (backpack.Get(itemName) == null)
+        if (backpack.Get(itemName) == null)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"You don't have a {itemName} in your inventory.");
             Console.ResetColor();
             return null;
         }
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"You don't have a {itemName} in your inventory.");
-                    Console.ResetColor();
-                    return null;
-                }
+        switch (itemName)
+        {
+
+            case "skull":
+                UseSkull(itemName);
+                return itemName;
+
+            case "rock":
+                UseRock(itemName);
+                return itemName;
+            case "bone":
+                UseBone(itemName);
+                return itemName;
+            case "potion":
+
+                UsePotion(itemName);
+                return itemName;
+
+            case "endkey":
                 UseEndKey(itemName);
                 return itemName;
 
             case "basementkey":
-                if (backpack.Get(itemName) == null)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"You don't have a {itemName} in your inventory.");
-                    Console.ResetColor();
-                    return null;
-                }
                 UseBasementKey(itemName);
                 return itemName;
 
@@ -148,9 +140,9 @@ class Player
         return null;
     }
 
-    private void UseSword()
+    private void UseSkull(string itemName)
     {
-        Console.WriteLine("very good very nice :)");
+        Console.WriteLine("you looked at the skull and desided to put it back");
 
     }
     private void UsePotion(string itemName)
@@ -171,6 +163,15 @@ class Player
     private void UseBasementKey(string itemName)
     {
         backpack.Get(itemName);
-        Console.WriteLine("very keye basement key:)");
+        Console.WriteLine("very keying basement key:)");
     }
+    private void UseRock(string itemName)
+    {
+        Console.WriteLine("you threw the rock away");
+    }
+    private void UseBone(string itemName)
+    {
+        Console.WriteLine("you threw the bone away");
+    }
+
 }

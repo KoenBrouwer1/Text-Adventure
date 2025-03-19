@@ -85,17 +85,45 @@ class Game
 		// Create your Items here
 		// ...
 
-		Item sword = new Item(10, "sword");
-		Item stick = new Item(1, "a fragile stick");
-		Item potion = new Item(2, "a health potion");
-		Item endkey = new Item(10, "end.key");
-		Item basementkey = new Item(10, "basement.key");
-		Item rock = new Item(3, "a rock");
-		Item bone = new Item(2, "a bone");
-		Item skull = new Item(5, "a skull");
+		Item stick = new Item(1, "stick");
+		Item potion = new Item(2, "health potion");
+		Item endkey = new Item(10, "end key");
+		Item basementkey = new Item(10, "basement key");
+		Item rock = new Item(3, "rock");
+		Item bone = new Item(2, "bone");
+		Item skull = new Item(5, "skull");
 		// Add items to the rooms
 
-		insidehouse.AddItem("sword", sword);
+		Random rng = new();
+
+		int kans1 = rng.Next(3);
+		int kans2 = rng.Next(3);
+		int kans3 = rng.Next(3);
+
+		Console.WriteLine($"Rand1: {kans1}");
+		Console.WriteLine($"Rand2: {kans2}");
+		Console.WriteLine($"Rand3: {kans3}");
+
+		if (kans1 == 1)
+		{
+			deepwoods.AddItem("potion", potion);
+			pool.AddItem("potion", potion);
+			house.AddItem("potion", potion);
+		}
+		else if (kans2 == 1)
+		{
+			insidelab.AddItem("potion", potion);
+			cave.AddItem("potion", potion);
+			darkbasement.AddItem("potion", potion);
+			insidehouse.AddItem("potion", potion);
+		}
+		else if (kans3 == 1)
+		{
+			start.AddItem("potion", potion);
+			basement.AddItem("potion", potion);
+			lab.AddItem("potion", potion);
+
+		}
 
 		start.AddItem("stick", stick);
 		lab.AddItem("stick", stick);
@@ -104,11 +132,6 @@ class Game
 		start.AddItem("rock", rock);
 		lab.AddItem("rock", rock);
 		house.AddItem("rock", rock);
-
-
-		start.AddItem("potion", potion);
-		deepwoods.AddItem("potion", potion);
-		insidelab.AddItem("potion", potion);
 
 		basement.AddItem("endkey", endkey);
 
@@ -125,6 +148,11 @@ class Game
 
 		// Start game outside
 		player.CurrentRoom = start;
+	}
+
+	private int ToString(int rand1)
+	{
+		throw new NotImplementedException();
 	}
 
 	//  Main play routine. Loops until end of play.
@@ -254,12 +282,20 @@ class Game
 			player.CurrentRoom = nextRoom;
 			Console.WriteLine(player.CurrentRoom.GetLongDescription());
 		}
+		if (player.Health == 30)
+		{
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine("You are low on health you should heal quickly.");
+			Console.ResetColor();
+		}
 
 		if (player.Health <= 0)
 		{
 			// Console.WriteLine();
+			Console.ForegroundColor = ConsoleColor.Red;
 			Console.WriteLine();
 			Console.WriteLine("You bled out, game over.");
+			Console.ResetColor();
 			Console.WriteLine("If you wish to play again press [Enter] and type 'dotnet run' in the console.");
 			Console.ReadLine();
 			Environment.Exit(0);
@@ -273,6 +309,7 @@ class Game
 		List<string> items = player.CurrentRoom.Chest.ListItems();
 		if (items.Count > 0)
 		{
+			Console.WriteLine(player.CurrentRoom.GetLongDescription());
 			Console.ForegroundColor = ConsoleColor.Blue;
 			Console.WriteLine("Items in the room: " + string.Join(", ", items));
 			Console.ResetColor();
@@ -316,6 +353,7 @@ class Game
 			Console.WriteLine("Drop what?");
 			return;
 		}
+
 		else
 		{
 			string itemName = command.SecondWord;
@@ -336,4 +374,3 @@ class Game
 		}
 	}
 }
-
