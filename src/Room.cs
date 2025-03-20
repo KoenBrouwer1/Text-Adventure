@@ -2,12 +2,12 @@ using System.Collections.Generic;
 
 class Room
 {
-    // Private fields
     private string description;
     private Dictionary<string, Room> exits; // stores exits of this room.
     private Inventory chest;
 
-    // Property
+    public bool isLocked = false;
+
     public Inventory Chest { get { return chest; } }
 
     // Constructor

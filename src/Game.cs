@@ -27,14 +27,20 @@ class Game
 		Room lab = new Room("you found mysterious lab in the woods.");
 		Room deepwoods = new Room("you are in the deep woods, It dark here");
 		Room cave = new Room("you found a cave hidden in the woods.");
-		Room insidecave = new Room("you are inside the cave this is the monser his house");
+		Room insidecave = new Room("you are inside the cave this is the monster his house");
 		Room basement = new Room("you are in the basement, maybe we should go back but there could be something useful in here.");
 		Room darkbasement = new Room("in the dark basement, it's dark in here but maybe there could be something here.");
 		Room insidehouse = new Room("its a small house, you hope you find something useful in here.");
 		Room insidelab = new Room("you are inside of the lab and you didnt find anything.");
 		Room End = new Room("You have successfully escaped the creature and you are safe for now.");
 
-		// Initialise room exits
+		// Locked rooms
+		basement.isLocked = true;
+		End.isLocked = true;
+
+
+
+		// start
 		start.AddExit("east", house);
 		start.AddExit("south", lab);
 		start.AddExit("west", pool);
@@ -96,70 +102,39 @@ class Game
 
 		Random rng = new();
 
-		int kans1 = rng.Next(4);
-		int kans2 = rng.Next(4);
-		int kans3 = rng.Next(4);
-		int kans4 = rng.Next(4);
-		int kans5 = rng.Next(4);
-		int kans6 = rng.Next(4);
-		int kans7 = rng.Next(4);
-		int kans8 = rng.Next(4);
-		int kans9 = rng.Next(4);
-		int kans10 = rng.Next(4);
+		int kans1 = rng.Next(3);
+		int kans2 = rng.Next(3);
+		int kans3 = rng.Next(3);
+		int kans4 = rng.Next(3);
+		int kans5 = rng.Next(3);
+		int kans6 = rng.Next(3);
+		int kans7 = rng.Next(3);
+		int kans8 = rng.Next(3);
+		int kans9 = rng.Next(3);
+		int kans10 = rng.Next(3);
 
 
-		// Console.WriteLine($"kans1: {kans1}");
-		// Console.WriteLine($"kans2: {kans2}");
-		// Console.WriteLine($"kans3: {kans3}");
-		// Console.WriteLine($"kans4: {kans4}");
-		// Console.WriteLine($"kans5: {kans5}");
-		// Console.WriteLine($"kans6: {kans6}");
-		// Console.WriteLine($"kans7: {kans7}");
-		// Console.WriteLine($"kans8: {kans8}");
-		// Console.WriteLine($"kans9: {kans9}");
-		// Console.WriteLine($"kans10: {kans10}");
+		Room[] rooms = { deepwoods, darkbasement, pool, house, insidelab, cave, insidehouse, start, basement, lab };
+		int[] chances = { kans1, kans2, kans3, kans4, kans5, kans6, kans7, kans8, kans9, kans10 };
 
+		for (int i = 0; i < rooms.Length; i++)
+		{
+			if (chances[i] == 1)
+			{
+				rooms[i].AddItem("potion", potion);
+			}
+		}
 
-		if (kans1 == 1)
-		{
-			deepwoods.AddItem("potion", potion);
-		}
-		else if (kans2 == 1)
-		{
-			darkbasement.AddItem("potion", potion);
-		}
-		else if (kans3 == 1)
-		{
-			pool.AddItem("potion", potion);
-		}
-		else if (kans4 == 1)
-		{
-			house.AddItem("potion", potion);
-		}
-		else if (kans5 == 1)
-		{
-			insidelab.AddItem("potion", potion);
-		}
-		else if (kans6 == 1)
-		{
-			cave.AddItem("potion", potion);
-		}
-		else if (kans7 == 1)
-		{
-			insidehouse.AddItem("potion", potion);
-		}
-		else if (kans8 == 1)
-		{
-			start.AddItem("potion", potion);
-		}
-		else if (kans9 == 1)
-		{
-			basement.AddItem("potion", potion);
-		}
-		else if (kans10 == 1)
-		{
-			lab.AddItem("potion", potion);
-		}
+		Console.WriteLine($"kans1:  {kans1}");
+		Console.WriteLine($"kans2:  {kans2}");
+		Console.WriteLine($"kans3:  {kans3}");
+		Console.WriteLine($"kans4:  {kans4}");
+		Console.WriteLine($"kans5:  {kans5}");
+		Console.WriteLine($"kans6:  {kans6}");
+		Console.WriteLine($"kans7:  {kans7}");
+		Console.WriteLine($"kans8:  {kans8}");
+		Console.WriteLine($"kans9:  {kans9}");
+		Console.WriteLine($"kans10: {kans10}");
 
 		start.AddItem("stick", stick);
 		lab.AddItem("stick", stick);
@@ -278,22 +253,36 @@ class Game
 
 		}
 
+
+
 		string direction = command.SecondWord;
 
-		
+
 		Room nextRoom = player.CurrentRoom.GetExit(direction);
-		player.Damage(10); 
+		player.Damage(10);
 		if (nextRoom == null)
 		{
 			Console.WriteLine("There is no door to " + direction + "!");
 			return;
 		}
 
-		if (player.Health >= 10)
+		if (nextRoom.isLocked != true)
 		{
 			player.CurrentRoom = nextRoom;
 			Console.WriteLine(player.CurrentRoom.GetLongDescription());
 		}
+		else
+		{
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine("The room you want to enter in locked");
+			Console.ResetColor();
+		}
+
+		if (player.Health >= 10)
+		{
+			player.CurrentRoom = nextRoom;
+		}
+
 		if (player.Health == 30)
 		{
 			Console.ForegroundColor = ConsoleColor.Red;
@@ -385,4 +374,5 @@ class Game
 			Console.WriteLine("Use what?");
 		}
 	}
+
 }

@@ -1,5 +1,3 @@
-
-//test
 using System.Runtime.CompilerServices;
 
 class Player
@@ -68,12 +66,12 @@ class Player
             }
         }
         if (item == null)
-            Console.ForegroundColor = ConsoleColor.Red;
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("there is no " + itemName + " in this room");
         Console.ResetColor();
 
         return false;
-        
+
     }
 
     public bool DropToChest(string itemName)
@@ -90,7 +88,7 @@ class Player
             {
                 backpack.Put(itemName, item);
                 return false;
-            }  
+            }
         }
         else
         {
@@ -134,6 +132,10 @@ class Player
                 UseBasementKey(itemName);
                 return itemName;
 
+            case "stick":
+                UseStick(itemName);
+                return itemName;
+
 
         }
 
@@ -164,14 +166,21 @@ class Player
     {
         backpack.Get(itemName);
         Console.WriteLine("very keying basement key:)");
+        
     }
     private void UseRock(string itemName)
     {
         Console.WriteLine("you threw the rock away");
-    }
+        CurrentRoom.Chest.Put(itemName, new Item(2, "rock"));
+        }
     private void UseBone(string itemName)
     {
         Console.WriteLine("you threw the bone away");
+    }
+    private void UseStick(string itemName)
+    {
+        Console.WriteLine("It snapped :(");
+        CurrentRoom.Chest.Put("SnappedStick", new Item(2, "broken_stick"));
     }
 
 }
