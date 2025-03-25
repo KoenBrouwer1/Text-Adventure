@@ -3,15 +3,12 @@ using System.Runtime.CompilerServices;
 class Player
 {
     public Inventory backpack { get; set; }
-
-
-
+    public Inventory Inventory { get; private set; }
 
     // auto property
     public Room CurrentRoom { get; set; }
-    private int health = 100;
 
-    public Inventory Inventory { get; private set; }
+    private int health = 100;
     public int Health
     {
         get { return health; }
@@ -66,7 +63,7 @@ class Player
             }
         }
         if (item == null)
-        Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("there is no " + itemName + " in this room");
         Console.ResetColor();
 
@@ -92,7 +89,7 @@ class Player
         }
         else
         {
-            Console.WriteLine("what do you mean");
+            Console.WriteLine($"you don't have a {itemName} in your inventory");
         }
         return false;
     }
@@ -145,6 +142,7 @@ class Player
     private void UseSkull(string itemName)
     {
         Console.WriteLine("you looked at the skull and desided to put it back");
+        CurrentRoom.Chest.Put(itemName, new Item(5, "skull"));
 
     }
     private void UsePotion(string itemName)
@@ -159,28 +157,34 @@ class Player
     private void UseEndKey(string itemName)
     {
         backpack.Get(itemName);
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("You have used the end key. Congratulations, you have won the game!");
+        Console.ResetColor();
+        Console.WriteLine("Press [Enter] to exit.");
+        Console.ReadLine();
+        Environment.Exit(0);
 
-        Console.WriteLine("very keye endkey :)");
     }
     private void UseBasementKey(string itemName)
     {
         backpack.Get(itemName);
-        Console.WriteLine("very keying basement key:)");
-        
+        Console.WriteLine("You used the basementkey");
+
     }
     private void UseRock(string itemName)
     {
-        Console.WriteLine("you threw the rock away");
+        Console.WriteLine("you threw the rock on the floor");
         CurrentRoom.Chest.Put(itemName, new Item(2, "rock"));
-        }
+    }
     private void UseBone(string itemName)
     {
-        Console.WriteLine("you threw the bone away");
+        Console.WriteLine("you put it back");
+        CurrentRoom.Chest.Put(itemName, new Item(2, "bone"));
     }
     private void UseStick(string itemName)
     {
         Console.WriteLine("It snapped :(");
-        CurrentRoom.Chest.Put("SnappedStick", new Item(2, "broken_stick"));
+        CurrentRoom.Chest.Put("SnappedStick", new Item(1, "SnappedStick"));
     }
 
 }

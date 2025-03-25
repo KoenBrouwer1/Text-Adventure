@@ -25,26 +25,26 @@ class Game
 		Room house = new Room("you found a cabin in the woods.");
 		Room pool = new Room("you found a abandoned swimming pool deep in the woods.");
 		Room lab = new Room("you found mysterious lab in the woods.");
-		Room deepwoods = new Room("you are in the deep woods, It dark here");
 		Room cave = new Room("you found a cave hidden in the woods.");
 		Room insidecave = new Room("you are inside the cave this is the monster his house");
 		Room basement = new Room("you are in the basement, maybe we should go back but there could be something useful in here.");
 		Room darkbasement = new Room("in the dark basement, it's dark in here but maybe there could be something here.");
 		Room insidehouse = new Room("its a small house, you hope you find something useful in here.");
 		Room insidelab = new Room("you are inside of the lab and you didnt find anything.");
-		Room End = new Room("You have successfully escaped the creature and you are safe for now.");
+		Room End = new Room("You are in the final room take and use the key to escape the creature.");
 
 		// Locked rooms
-		basement.isLocked = true;
-		End.isLocked = true;
 
+		// house.isLocked = true;
+		// basement.isLocked = true;
+		// End.isLocked = true;
 
 
 		// start
 		start.AddExit("east", house);
 		start.AddExit("south", lab);
 		start.AddExit("west", pool);
-		start.AddExit("north", deepwoods);
+		start.AddExit("north", cave);
 
 
 		//basement
@@ -62,16 +62,13 @@ class Game
 		insidehouse.AddExit("outside", house);
 		insidehouse.AddExit("down", basement);
 
-		//deepwoods
-		deepwoods.AddExit("south", start);
-		deepwoods.AddExit("north", cave);
 
 		//cave
 		cave.AddExit("south", start);
 		cave.AddExit("inside", insidecave);
 
 		//insidecave
-		insidecave.AddExit("outside", deepwoods);
+		insidecave.AddExit("outside", cave);
 
 		//pool
 		pool.AddExit("east", start);
@@ -92,13 +89,12 @@ class Game
 		// ...
 
 		Item stick = new Item(1, "stick");
-		Item potion = new Item(2, "health potion");
+		Item potion = new Item(5, "health potion");
 		Item endkey = new Item(10, "end key");
 		Item basementkey = new Item(10, "basement key");
 		Item rock = new Item(3, "rock");
 		Item bone = new Item(2, "bone");
 		Item skull = new Item(5, "skull");
-		// Add items to the rooms
 
 		Random rng = new();
 
@@ -110,12 +106,12 @@ class Game
 		int kans6 = rng.Next(3);
 		int kans7 = rng.Next(3);
 		int kans8 = rng.Next(3);
-		int kans9 = rng.Next(3);
-		int kans10 = rng.Next(3);
+		
 
 
-		Room[] rooms = { deepwoods, darkbasement, pool, house, insidelab, cave, insidehouse, start, basement, lab };
-		int[] chances = { kans1, kans2, kans3, kans4, kans5, kans6, kans7, kans8, kans9, kans10 };
+
+		Room[] rooms = { darkbasement, pool, house, insidelab, cave,  start, basement, lab };
+		int[] chances = { kans1, kans2, kans3, kans4, kans5, kans6, kans7, kans8,  };
 
 		for (int i = 0; i < rooms.Length; i++)
 		{
@@ -133,24 +129,36 @@ class Game
 		Console.WriteLine($"kans6:  {kans6}");
 		Console.WriteLine($"kans7:  {kans7}");
 		Console.WriteLine($"kans8:  {kans8}");
-		Console.WriteLine($"kans9:  {kans9}");
-		Console.WriteLine($"kans10: {kans10}");
 
-		start.AddItem("stick", stick);
-		lab.AddItem("stick", stick);
+		// Add items to the rooms
+
+		//house
+		house.AddItem("rock", rock);
 		house.AddItem("stick", stick);
 
-		start.AddItem("rock", rock);
+		//insidehouse
+		insidehouse.AddItem("potion", potion);
+
+		//lab
+		lab.AddItem("stick", stick);
 		lab.AddItem("rock", rock);
-		house.AddItem("rock", rock);
 
-		basement.AddItem("endkey", endkey);
+		//start
+		start.AddItem("stick", stick);
+		start.AddItem("rock", rock);
+		// start.AddItem("bone", bone);
+		// start.AddItem("skull", skull);
 
-		insidecave.AddItem("bone", bone);
-		insidecave.AddItem("skull", skull);
+		//keys
+		End.AddItem("endkey", endkey);
 		insidecave.AddItem("basementkey", basementkey);
 
+		//insidecave
+		insidecave.AddItem("bone", bone);
+		insidecave.AddItem("skull", skull);
+
 		// Start game outside
+
 		player.CurrentRoom = start;
 	}
 
@@ -249,8 +257,6 @@ class Game
 		{
 			Console.WriteLine("Go where?");
 			return;
-
-
 		}
 
 
@@ -259,29 +265,26 @@ class Game
 
 
 		Room nextRoom = player.CurrentRoom.GetExit(direction);
-		player.Damage(10);
 		if (nextRoom == null)
 		{
 			Console.WriteLine("There is no door to " + direction + "!");
 			return;
 		}
 
-		if (nextRoom.isLocked != true)
-		{
-			player.CurrentRoom = nextRoom;
-			Console.WriteLine(player.CurrentRoom.GetLongDescription());
-		}
-		else
-		{
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.WriteLine("The room you want to enter in locked");
-			Console.ResetColor();
-		}
 
-		if (player.Health >= 10)
-		{
-			player.CurrentRoom = nextRoom;
-		}
+
+		// if (nextRoom.isLocked != true)
+		// {
+		// 	player.Damage(10);
+		// 	player.CurrentRoom = nextRoom;
+		// 	Console.WriteLine(player.CurrentRoom.GetLongDescription());
+		// }
+		// else
+		// {
+		// 	Console.ForegroundColor = ConsoleColor.Red;
+		// 	Console.WriteLine("The room you want to enter in locked");
+		// 	Console.ResetColor();
+		// }
 
 		if (player.Health == 30)
 		{
@@ -290,6 +293,12 @@ class Game
 			Console.ResetColor();
 		}
 
+		if (player.Health > 0)
+		{
+			player.Damage(10);
+			player.CurrentRoom = nextRoom;
+			Console.WriteLine(player.CurrentRoom.GetLongDescription());
+		}
 		if (player.Health <= 0)
 		{
 			// Console.WriteLine();
@@ -301,6 +310,8 @@ class Game
 			Console.ReadLine();
 			Environment.Exit(0);
 		}
+
+
 
 
 	}
@@ -317,7 +328,10 @@ class Game
 		}
 		else
 		{
+			Console.WriteLine(player.CurrentRoom.GetLongDescription());
+			Console.ForegroundColor = ConsoleColor.Red;
 			Console.WriteLine("No items in the room.");
+			Console.ResetColor();
 		}
 	}
 	private void Status()
@@ -344,6 +358,8 @@ class Game
 		{
 			string itemName = command.SecondWord;
 			player.TakeFromChest(itemName);
+
+		
 		}
 	}
 
