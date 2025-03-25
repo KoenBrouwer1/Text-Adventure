@@ -7,7 +7,7 @@ class Game
 	// Private fields
 	private Parser parser;
 	private Player player;
-	// private Room currentRoom { get; set; }
+	
 
 	// Constructor
 	public Game()
@@ -35,9 +35,6 @@ class Game
 
 		// Locked rooms
 
-		// house.isLocked = true;
-		// basement.isLocked = true;
-		// End.isLocked = true;
 
 
 		// start
@@ -106,12 +103,12 @@ class Game
 		int kans6 = rng.Next(3);
 		int kans7 = rng.Next(3);
 		int kans8 = rng.Next(3);
-		
 
 
 
-		Room[] rooms = { darkbasement, pool, house, insidelab, cave,  start, basement, lab };
-		int[] chances = { kans1, kans2, kans3, kans4, kans5, kans6, kans7, kans8,  };
+
+		Room[] rooms = { darkbasement, pool, house, insidelab, cave, start, basement, lab };
+		int[] chances = { kans1, kans2, kans3, kans4, kans5, kans6, kans7, kans8, };
 
 		for (int i = 0; i < rooms.Length; i++)
 		{
@@ -121,14 +118,14 @@ class Game
 			}
 		}
 
-		Console.WriteLine($"kans1:  {kans1}");
-		Console.WriteLine($"kans2:  {kans2}");
-		Console.WriteLine($"kans3:  {kans3}");
-		Console.WriteLine($"kans4:  {kans4}");
-		Console.WriteLine($"kans5:  {kans5}");
-		Console.WriteLine($"kans6:  {kans6}");
-		Console.WriteLine($"kans7:  {kans7}");
-		Console.WriteLine($"kans8:  {kans8}");
+		// Console.WriteLine($"kans1:  {kans1}");
+		// Console.WriteLine($"kans2:  {kans2}");
+		// Console.WriteLine($"kans3:  {kans3}");
+		// Console.WriteLine($"kans4:  {kans4}");
+		// Console.WriteLine($"kans5:  {kans5}");
+		// Console.WriteLine($"kans6:  {kans6}");
+		// Console.WriteLine($"kans7:  {kans7}");
+		// Console.WriteLine($"kans8:  {kans8}");
 
 		// Add items to the rooms
 
@@ -272,27 +269,6 @@ class Game
 		}
 
 
-
-		// if (nextRoom.isLocked != true)
-		// {
-		// 	player.Damage(10);
-		// 	player.CurrentRoom = nextRoom;
-		// 	Console.WriteLine(player.CurrentRoom.GetLongDescription());
-		// }
-		// else
-		// {
-		// 	Console.ForegroundColor = ConsoleColor.Red;
-		// 	Console.WriteLine("The room you want to enter in locked");
-		// 	Console.ResetColor();
-		// }
-
-		if (player.Health == 30)
-		{
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.WriteLine("You are low on health you should heal quickly.");
-			Console.ResetColor();
-		}
-
 		if (player.Health > 0)
 		{
 			player.Damage(10);
@@ -311,9 +287,12 @@ class Game
 			Environment.Exit(0);
 		}
 
-
-
-
+		if (player.Health == 30)
+		{
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine("You are low on health you should heal quickly.");
+			Console.ResetColor();
+		}
 	}
 
 	private void Look()
@@ -359,7 +338,7 @@ class Game
 			string itemName = command.SecondWord;
 			player.TakeFromChest(itemName);
 
-		
+
 		}
 	}
 

@@ -2,12 +2,13 @@ using System.Runtime.CompilerServices;
 
 class Player
 {
+
+
+    //fields
     public Inventory backpack { get; set; }
     public Inventory Inventory { get; private set; }
 
-    // auto property
     public Room CurrentRoom { get; set; }
-
     private int health = 100;
     public int Health
     {
@@ -132,8 +133,6 @@ class Player
             case "stick":
                 UseStick(itemName);
                 return itemName;
-
-
         }
 
         return null;
@@ -169,7 +168,6 @@ class Player
     {
         backpack.Get(itemName);
         Console.WriteLine("You used the basementkey");
-
     }
     private void UseRock(string itemName)
     {

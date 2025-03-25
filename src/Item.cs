@@ -3,6 +3,8 @@ class Item
 
 
 	//fields
+    	public int Weight { get; }
+	public string Description { get; }
 	static void items()
     {
         List<Item> Inventory = new List<Item>();
@@ -19,8 +21,7 @@ class Item
             Console.WriteLine($"{item.Description} - Weight: {item.Weight}");
         }
     }
-	public int Weight { get; }
-	public string Description { get; }
+
 	public Item(int weight, string description)
 	{
 		Weight = weight;
